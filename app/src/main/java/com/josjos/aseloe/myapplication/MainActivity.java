@@ -26,10 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
     double dekat = 0, aman = 0, jauh = 0, lambat = 0, normal = 0, cepat = 0, kendor = 0, sedang = 0, kencang = 0;
 
+    /*Valueset adalah Dataset dinamis yang nilai entery-nya berubah-ubah.*/
     LineDataSet valueset1;
     LineDataSet valueset2;
     LineDataSet valueset3;
+    /*DataSet ini fungsinya menampung semua Dataset, baik Statis/Dinamis, tetapi yang Statis sudah menggunakan porsi Index 0,1,2.*/
     List<ILineDataSet> dataSets;
+    /*LineData ini fungsinya sama dengan DataSet di C#, sebagai acuan Chart.*/
     LineData lineData;
 
     @Override
@@ -37,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        LineChart line = (LineChart) findViewById(R.id.chart);
+        LineChart line = (LineChart) findViewById(R.id.chart); //Chart LineChart
+        /* ListEntry mewakili satu garis linear. Dan titik-titiknya ditentukan oleh Entry individu didalamnya, seperti dibawah*/
         List<Entry> kendor1 = new ArrayList<Entry>();
         kendor1.add(new Entry(0f,0));
         kendor1.add(new Entry(200f,1));
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         kencang1.add(new Entry(600f,1));
         kencang1.add(new Entry(1000f,1));
 
+        /* dataset == ListEntery, namun kendali Labeling dan styling garis disini.*/
         LineDataSet dataset1 = new LineDataSet(kendor1,"Kendor");
         dataset1.setColor(-65281);
         dataset1.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -115,8 +119,6 @@ public class MainActivity extends AppCompatActivity {
             value3.add(new Entry(1000f, (float) kencang));
         }
 
-
-        //https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
 
         dataSets = new ArrayList<ILineDataSet>();
         dataSets.add(dataset1); dataSets.add(dataset2); dataSets.add(dataset3);
@@ -201,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
             int kijol = (int) ((kendor*(200-0)) + 0);
             int kijul = (int) (-((kendor*(400-200)) - 400));
 
-
             value1.add(new Entry((float) kijol, (float) kendor));
             value1.add(new Entry((float) kijul, (float) kendor));
             value1.add(new Entry(400f, 0));
@@ -225,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         //https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
-
 
         dataSets.add(valueset1); dataSets.add(valueset2); dataSets.add(valueset3);
         line.setData(lineData);
