@@ -12,15 +12,15 @@
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1.7">
 
     </com.github.mikephil.charting.charts.LineChart>
 
     <LinearLayout
+        android:layout_weight="0.2"
         android:baselineAligned="false"
         android:layout_marginTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingStart="20dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -28,29 +28,27 @@
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Jarak (Meter)"
-                android:textStyle="bold"
-                android:paddingStart="40dp"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
             <EditText
+                android:layout_weight="1"
                 android:id="@+id/jarak"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="match_parent"
                 android:text="0"
-                android:textSize="70sp"
+                android:textSize="30sp"
                 android:inputType="number"
                 android:maxLength="3"
                 android:textAlignment="center"
                 android:backgroundTint="@android:color/transparent"
                 />
             <SeekBar
+                android:layout_weight="0.8"
+                android:rotation="90"
                 android:id="@+id/jarakseekbar"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:progress="0"
                 android:max="160"/>
         </LinearLayout>
@@ -59,20 +57,15 @@
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Kecepatan (KM/s)"
-                android:textStyle="bold"
-                android:paddingStart="20dp"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
             <EditText
+                android:layout_weight="1"
                 android:id="@+id/kecepatan"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="match_parent"
                 android:text="0"
-                android:textSize="70sp"
+                android:textSize="30sp"
                 android:inputType="number"
                 android:maxLength="3"
                 android:textAlignment="center"
@@ -80,23 +73,32 @@
                 />
 
             <SeekBar
+                android:rotation="90"
+                android:layout_weight="0.8"
                 android:id="@+id/kecepatanseekbar"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:progress="0"
                 android:max="100"/>
 
         </LinearLayout>
 
     </LinearLayout>
-
-        <Button
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal">
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="OnCalculate"
-            android:text="CALCUlate"/>
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="     Jarak (M)          Kecepatan (M/s)"/>
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

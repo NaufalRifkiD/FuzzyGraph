@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 jarak.setText("" + i);
+                OnCalculate();
             }
 
             @Override
@@ -161,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 kecepatan.setText("" + i);
+                OnCalculate();
             }
 
             @Override
@@ -181,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void OnCalculate(View v){
+    public void OnCalculate(){
         EditText jarak, kecepatan;
         jarak = (EditText) findViewById(R.id.jarak);
         kecepatan = (EditText) findViewById(R.id.kecepatan);
@@ -277,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
         dataSets.add(valueset1); dataSets.add(valueset2); dataSets.add(valueset3);
         line.setData(lineData);
         line.notifyDataSetChanged();
-        line.animateX(3000, Easing.EasingOption.EaseOutSine);
+        line.animateX(1000, Easing.EasingOption.EaseOutSine);
 
     }
 
