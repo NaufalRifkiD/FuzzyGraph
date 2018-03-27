@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -128,7 +129,53 @@ public class MainActivity extends AppCompatActivity {
         line.setData(lineData);
         line.animateX(3000, Easing.EasingOption.EaseOutSine);
 
+
+        //SEEKBAR
+        final EditText jarak, kecepatan;
+        jarak = (EditText) findViewById(R.id.jarak);
+        kecepatan = (EditText) findViewById(R.id.kecepatan);
+
+        final SeekBar jarakseekbar = (SeekBar) findViewById(R.id.jarakseekbar) ;
+        SeekBar kecepatanseekbar = (SeekBar) findViewById(R.id.kecepatanseekbar);
+
+        jarakseekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                jarak.setText("" + i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        kecepatanseekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                kecepatan.setText("" + i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
     }
+
 
     public void setData(ChartData data) {
 

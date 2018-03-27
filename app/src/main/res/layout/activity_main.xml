@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,12 +11,14 @@
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"></com.github.mikephil.charting.charts.LineChart>
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </com.github.mikephil.charting.charts.LineChart>
 
     <LinearLayout
+        android:baselineAligned="false"
         android:layout_marginTop="20dp"
-        android:layout_alignParentTop="true"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:orientation="horizontal"
@@ -33,36 +35,24 @@
                 android:layout_height="wrap_content"
                 android:text="Jarak (Meter)"
                 android:textStyle="bold"
-                android:paddingLeft="40dp"/>
+                android:paddingStart="40dp"/>
             <EditText
                 android:id="@+id/jarak"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:text="70"
+                android:text="0"
                 android:textSize="70sp"
                 android:inputType="number"
                 android:maxLength="3"
                 android:textAlignment="center"
                 android:backgroundTint="@android:color/transparent"
                 />
-            <LinearLayout
+            <SeekBar
+                android:id="@+id/jarakseekbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="+"/>
-                <Button
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="-"/>
-            </LinearLayout>
+                android:layout_height="40dp"
+                android:progress="0"
+                android:max="160"/>
         </LinearLayout>
 
 
@@ -76,36 +66,26 @@
                 android:layout_height="wrap_content"
                 android:text="Kecepatan (KM/s)"
                 android:textStyle="bold"
-                android:paddingLeft="20dp"/>
+                android:paddingStart="40dp"/>
             <EditText
                 android:id="@+id/kecepatan"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:text="60"
+                android:text="0"
                 android:textSize="70sp"
                 android:inputType="number"
                 android:maxLength="3"
                 android:textAlignment="center"
                 android:backgroundTint="@android:color/transparent"
                 />
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <Button
-                android:layout_weight="1"
+            <SeekBar
+                android:id="@+id/kecepatanseekbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="+"/>
-            <Button
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="-"/>
-        </LinearLayout>
+                android:layout_height="40dp"
+                android:progress="0"
+                android:max="100"/>
+
         </LinearLayout>
 
     </LinearLayout>
