@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:text="Kecepatan (KM/s)"
                 android:textStyle="bold"
-                android:paddingStart="40dp"/>
+                android:paddingStart="20dp"/>
             <EditText
                 android:id="@+id/kecepatan"
                 android:layout_width="match_parent"
