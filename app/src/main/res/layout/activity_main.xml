@@ -8,13 +8,27 @@
     android:orientation="vertical"
     tools:context="com.josjos.aseloe.myapplication.MainActivity">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.7">
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
-    </com.github.mikephil.charting.charts.LineChart>
+        </com.github.mikephil.charting.charts.LineChart>
+        <TextView
+            android:id="@+id/defuzzy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="0DP"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_weight="0.2"
@@ -41,16 +55,19 @@
                 android:inputType="number"
                 android:maxLength="3"
                 android:textAlignment="center"
+                android:enabled="false"
                 android:backgroundTint="@android:color/transparent"
                 />
+
             <SeekBar
-                android:layout_weight="0.8"
-                android:rotation="90"
                 android:id="@+id/jarakseekbar"
+                style="@android:style/Widget.Material.Light.SeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:max="160"
                 android:progress="0"
-                android:max="160"/>
+                android:rotation="90" />
         </LinearLayout>
 
 
@@ -65,6 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="0"
+                android:enabled="false"
                 android:textSize="30sp"
                 android:inputType="number"
                 android:maxLength="3"

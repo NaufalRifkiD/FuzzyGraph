@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ import static android.graphics.Color.red;
 public class MainActivity extends AppCompatActivity {
 
     double dekat = 0, aman = 0, jauh = 0, lambat = 0, normal = 0, cepat = 0, kendor = 0, sedang = 0, kencang = 0;
+    double temp_a = 0, temp_b = 0;
 
     /*Valueset adalah Dataset dinamis yang nilai entery-nya berubah-ubah.*/
     LineDataSet valueset1;
@@ -36,12 +39,15 @@ public class MainActivity extends AppCompatActivity {
     /*LineData ini fungsinya sama dengan DataSet di C#, sebagai acuan Chart.*/
     LineData lineData;
 
+    TextView defuzzy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LineChart line = (LineChart) findViewById(R.id.chart); //Chart LineChart
+        LineChart line = (LineChart) findViewById(R.id.chart);
+        line.setScaleEnabled(false);//Chart LineChart
         /* ListEntry mewakili satu garis linear. Dan titik-titiknya ditentukan oleh Entry individu didalamnya, seperti dibawah*/
         List<Entry> kendor1 = new ArrayList<Entry>();
         kendor1.add(new Entry(0f,0));
@@ -127,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         lineData = new LineData(dataSets);
         line.setData(lineData);
-        line.animateX(3000, Easing.EasingOption.EaseOutSine);
+        line.animateXY(3000,1000);
 
 
         //SEEKBAR
@@ -196,31 +202,67 @@ public class MainActivity extends AppCompatActivity {
         double kendor = 0, sedang = 0, kencang = 0;
 
         if(dekat!=0){
-            if(cepat!=0)
+            if(cepat!=0){
+                temp_a = temp_a + (((Math.min(dekat,cepat)*200)+400)*Math.min(dekat,cepat));
+                temp_b = temp_b + Math.min(dekat,cepat);
                 kencang = (Math.min(dekat,cepat)>kencang)?Math.min(dekat,cepat):kencang;
-            if(normal!=0)
+            }
+            if(normal!=0){
+                temp_a = temp_a + (((Math.min(dekat,normal)*200)+200)*Math.min(dekat,normal));
+                temp_b = temp_b + Math.min(dekat,normal);
                 sedang = (Math.min(dekat,normal)>sedang)?Math.min(dekat,normal):sedang;
-            if(lambat!=0)
+            }
+            if(lambat!=0){
+                temp_a = temp_a + (((Math.min(dekat,lambat)*200)+200)*Math.min(dekat,lambat));
+                temp_b = temp_b + Math.min(dekat,lambat);
                 sedang = (Math.min(dekat,lambat)>sedang)?Math.min(dekat,lambat):sedang;
+            }
         }
 
         if(aman!=0){
-            if(cepat!=0)
+            if(cepat!=0){
+                temp_a = temp_a + (((Math.min(aman,cepat)*200)+200)*Math.min(aman,cepat));
+                temp_b = temp_b + Math.min(aman,cepat);
                 sedang = (Math.min(aman,cepat)>sedang)?Math.min(aman,cepat):sedang;
-            if(normal!=0)
+            }
+
+            if(normal!=0){
+                temp_a = temp_a + (((Math.min(aman,normal)*200)+200)*Math.min(aman,normal));
+                temp_b = temp_b + Math.min(aman,normal);
                 sedang = (Math.min(aman,normal)>sedang)?Math.min(aman,normal):sedang;
-            if(lambat!=0)
+            }
+
+            if(lambat!=0){
+                temp_a = temp_a + (((Math.min(aman,lambat)*200)-400)*Math.min(aman,lambat));
+                temp_b = temp_b + Math.min(aman,lambat);
                 kendor = (Math.min(aman,lambat)>kendor)?Math.min(aman,lambat):kendor;
+            }
+
         }
 
         if(jauh!=0){
-            if(cepat!=0)
+            if(cepat!=0){
+                temp_a = temp_a + (((Math.min(jauh,cepat)*200)+200)*Math.min(jauh,cepat));
+                temp_b = temp_b + Math.min(jauh,cepat);
                 sedang = (Math.min(jauh,cepat)>sedang)?Math.min(jauh,cepat):sedang;
-            if(normal!=0)
+            }
+
+            if(normal!=0){
+                temp_a = temp_a + (((Math.min(jauh,normal)*200)-400)*Math.min(jauh,normal));
+                temp_b = temp_b + Math.min(jauh,normal);
                 kendor = (Math.min(jauh,normal)>kendor)?Math.min(jauh,normal):kendor;
-            if(lambat!=0)
+            }
+
+            if(lambat!=0){
+                temp_a = temp_a + (((Math.min(jauh,lambat)*200)-400)*Math.min(jauh,lambat));
+                temp_b = temp_b + Math.min(jauh,lambat);
                 kendor = (Math.min(jauh,lambat)>kendor)?Math.min(jauh,lambat):kendor;
+            }
+
         }
+        defuzzy = (TextView) findViewById(R.id.defuzzy);
+        DecimalFormat df = new DecimalFormat("####0.00");
+        defuzzy.setText(df.format(temp_a / temp_b));
 
         List<Entry> value1 = new ArrayList<Entry>();
         List<Entry> value2 = new ArrayList<Entry>();
@@ -249,30 +291,23 @@ public class MainActivity extends AppCompatActivity {
 
         //new Value
         if(kendor!=0){
-            int kijol = (int) ((kendor*(200-0)) + 0);
-            int kijul = (int) (-((kendor*(400-200)) - 400));
-
+            int kijol = (int) ((kendor*(400-200)) + 0);
+            value1.add(new Entry(0f,0));
+            value1.add(new Entry((float) kijol,0));
             value1.add(new Entry((float) kijol, (float) kendor));
-            value1.add(new Entry((float) kijul, (float) kendor));
-            value1.add(new Entry(400f, 0));
         }
         if(sedang!=0){
             int kijol = (int) ((sedang*(400-200)) + 200);
-            int kijul = (int) (-((sedang*(600-400)) - 600));
-
-            value2.add(new Entry(200f,0));
+            value2.add(new Entry(0f,0));
+            value2.add(new Entry((float) kijol,0));
             value2.add(new Entry((float) kijol, (float) sedang));
-            value2.add(new Entry((float) kijul, (float) sedang));
-            value2.add(new Entry(600f, 0));
         }
         if(kencang!=0){
             int kijol = (int) ((kencang*(600-400)) + 400);
-
-            value3.add(new Entry(400f,0));
+            value3.add(new Entry(0f,0));
+            value3.add(new Entry((float) kijol,0));
             value3.add(new Entry((float) kijol, (float) kencang));
-            value3.add(new Entry(1000f, (float) kencang));
         }
-
 
         //https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
 
@@ -340,7 +375,6 @@ public class MainActivity extends AppCompatActivity {
             cepat = 1;
         else
             cepat = 0;
-
     }
 
 
